@@ -19,15 +19,16 @@ namespace todo_service.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<Item> Get()
+        public IEnumerable<WeatherData> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new Item
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return null;
+            //return Enumerable.Range(1, 5).Select(index => new Item
+            //{
+            //    Date = DateTime.Now.AddDays(index),
+            //    TemperatureC = Random.Shared.Next(-20, 55),
+            //    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            //})
+            //.ToArray();
         }
     }
 }

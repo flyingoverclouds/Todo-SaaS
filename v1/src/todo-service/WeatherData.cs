@@ -1,6 +1,6 @@
 namespace todo_service
 {
-    public class TodoItem
+    public class WeatherData
     {
         public DateTime Date { get; set; }
 

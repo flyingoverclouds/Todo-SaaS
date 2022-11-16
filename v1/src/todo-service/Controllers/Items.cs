@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using todo_service.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace todo_service
+namespace todo_service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -12,7 +13,7 @@ namespace todo_service
         [HttpGet]
         public IEnumerable<TodoItem> Get()
         {
-            return new [] { new TodoItem(), new TodoItem() };
+            return new[] { new TodoItem(), new TodoItem() };
         }
 
         // GET api/Items/5
