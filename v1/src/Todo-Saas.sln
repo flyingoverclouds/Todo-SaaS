@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "front-blazor", "front-blazo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "todo-service", "todo-service\todo-service.csproj", "{D857952D-B9E4-4677-9117-96C712D78B06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "front-razor", "front-razor\front-razor.csproj", "{6F44FFAB-821B-4F90-AE0F-905D61C6709D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "front-razor", "front-razor\front-razor.csproj", "{6F44FFAB-821B-4F90-AE0F-905D61C6709D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "front-common", "front-common\front-common.csproj", "{17336A92-AAF0-4C62-95D7-B31A361F8471}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "front-common", "front-common\front-common.csproj", "{17336A92-AAF0-4C62-95D7-B31A361F8471}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbfiller-dev", "dbfiller-dev\dbfiller-dev.csproj", "{EC4F7BB4-53A6-4551-8A3F-160226281291}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{17336A92-AAF0-4C62-95D7-B31A361F8471}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17336A92-AAF0-4C62-95D7-B31A361F8471}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17336A92-AAF0-4C62-95D7-B31A361F8471}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC4F7BB4-53A6-4551-8A3F-160226281291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4F7BB4-53A6-4551-8A3F-160226281291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4F7BB4-53A6-4551-8A3F-160226281291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC4F7BB4-53A6-4551-8A3F-160226281291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

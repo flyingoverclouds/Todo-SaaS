@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- RENAME THIS FILE TO App.config AND UPDATE CONFIG VALUE-->
+<configuration>
+  <appSettings>
+    <add key="EndpointUri" value="https://TO_REPLACE.documents.azure.com:443/" />
+    <add key="PrimaryKey" value="TO_REPLACE_WITH_YOUR_COSMOSDB_KEY" />
+    <add key="DatabaseId" value="TodoSaas"/>
+    <add key="ContainerId" value="Items"/>
+  </appSettings>
+</configuration>
