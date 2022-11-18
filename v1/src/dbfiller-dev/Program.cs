@@ -36,6 +36,12 @@ namespace dbfiller_dev
         {
             Console.WriteLine($"###> DbFiller -DEV- v{VERSION}");
 
+            if (string.IsNullOrEmpty(PrimaryKey))
+            {
+                Console.WriteLine("ERREUR : Vérifier la présence et les valeurs dans le fichier App.Config");
+                return;
+            }
+
 
             try
             {
@@ -45,12 +51,12 @@ namespace dbfiller_dev
             catch (CosmosException ce)
             {
                 Console.WriteLine($"Erreur COSMOSDB: {ce.Message}");
-                Console.WriteLine(ce.ToString());
+                //Console.WriteLine(ce.ToString());
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Exception non gérée : {ex.Message}");
-                Console.WriteLine(ex.ToString());
+                //Console.WriteLine(ex.ToString());
             }
 
         }
@@ -61,28 +67,39 @@ namespace dbfiller_dev
                 new CosmosClientOptions() { 
                     ApplicationName="TodoItemDevDbFiller"
                 });
-            // Database , Container should already exist and configured
-            this.database = await this.cosmosClient.CreateDatabaseIfNotExistsAsync(databaseId);
+            // Database and Container should already exist and configured
+            database = cosmosClient.GetDatabase(databaseId);
+            container = database.GetContainer(containerId);
+
+            var items = GetTestItems();
+
+            foreach(var i in items)
+            {
+                Console.Write($"ITM #{i.Id} ...");
+                var result = await container.CreateItemAsync<TodoItem>(i);
+                Console.WriteLine($"ID={result.Resource.Id}      RUs={result.RequestCharge} \n");
+            }
             
-
-
         }
 
         ICollection<TodoItem> GetTestItems()
         {
-            var nbTenant = 3;
+            Random rnd = new Random((int)DateTime.Now.Ticks);
+            const int nbTenant = 3;
+            const int nbItemPerTenant = 10;
             var d = new List<TodoItem>();
             int nb = 1;
             for (int t = 1; t <= nbTenant; t++)
             {
+                for (int i=1;i<= nbItemPerTenant;i++)
                 d.Add(new TodoItem()
                 {
                     Id = Guid.NewGuid(),
-                    Timestamp = DateTime.Now.AddDays(-nb),
+                    Timestamp = DateTime.Now.AddDays(-rnd.NextInt64(120)),
                     Tenant = $"T{t}",
                     Title = $"Todo #{nb}",
-                    Content = $"Il y a plein de chose a faire ici T{t}#{nb}",
-                    Done = (nb % 1 == 1) ? true : false
+                    Content = $"Ceci est le todo : T{t}#{nb}",
+                    Done = rnd.NextInt64()%1==1
                 }); ;
                 nb++;
             }
