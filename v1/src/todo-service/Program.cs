@@ -1,4 +1,5 @@
 using Microsoft.Azure.Cosmos;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,12 @@ string EndpointUri = builder.Configuration.GetValue<string>("EndPointUri");
 string PrimaryKey = builder.Configuration.GetValue<string>("PrimaryKey");
 string databaseId = builder.Configuration.GetValue<string>("DatabaseId");
 string containerId = builder.Configuration.GetValue<string>("ContainerId");
+
+
+Trace.TraceInformation($"Settings: EndpointURI = {EndpointUri}");
+Trace.TraceInformation($"Settings: PrimaryKey = {PrimaryKey.Substring(0,5)}...REDACTED");
+Trace.TraceInformation($"Settings: EndpointURI = {databaseId}");
+Trace.TraceInformation($"Settings: EndpointURI = {containerId}");
 
 var cosmosClient = new CosmosClient(EndpointUri, PrimaryKey,
                new CosmosClientOptions()
