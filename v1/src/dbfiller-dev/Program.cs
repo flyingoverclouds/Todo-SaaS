@@ -91,17 +91,19 @@ namespace dbfiller_dev
             int nb = 1;
             for (int t = 1; t <= nbTenant; t++)
             {
-                for (int i=1;i<= nbItemPerTenant;i++)
-                d.Add(new TodoItem()
+                for (int i = 1; i <= nbItemPerTenant; i++)
                 {
-                    Id = Guid.NewGuid(),
-                    Timestamp = DateTime.Now.AddDays(-rnd.NextInt64(120)),
-                    Tenant = $"T{t}",
-                    Title = $"Todo #{nb}",
-                    Content = $"Ceci est le todo : T{t}#{nb}",
-                    Done = rnd.NextInt64()%1==1
-                }); ;
-                nb++;
+                    d.Add(new TodoItem()
+                    {
+                        Id = Guid.NewGuid(),
+                        Timestamp = DateTime.Now.AddDays(-rnd.NextInt64(120)),
+                        Tenant = $"T{t}",
+                        Title = $"Todo #{nb}",
+                        Content = $"Ceci est le todo {nb} : T{t}#{i}",
+                        Done = rnd.NextInt64() % 1 == 1
+                    });
+                    nb++;
+                }
             }
 
             return d;

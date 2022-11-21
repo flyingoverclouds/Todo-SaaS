@@ -1,13 +1,13 @@
-﻿using todo_service.Models;
+﻿using front_common.Models;
 
 namespace todo_service
 {
     public interface IItemDataService
     {
-        TodoItem GetItem(string Tenant, Guid todoId);
-        void CreateItem(TodoItem item);
-        void DeleteItem(string Tenant, Guid todoId);
-        void CheckItem(string Tenant, Guid todoId, bool done);
-
+        Task<TodoItem> GetItemAsync(Guid todoId);
+        Task<IEnumerable<TodoItem>> GetItemsAsync();
+        Task CreateItemAsync(TodoItem item);
+        Task DeleteItemAsync(Guid todoId);
+        Task SetDoneAsync(Guid todoId, bool done);
     }
 }

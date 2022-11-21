@@ -1,36 +1,81 @@
-﻿using todo_service.Models;
+﻿using front_common.Models;
+using Microsoft.AspNetCore.Mvc.Diagnostics;
+using Microsoft.Azure.Cosmos;
+using System.ComponentModel;
 
 namespace todo_service.Services
 {
     public class TodoItemService : IItemDataService
     {
-        public void CheckItem(string Tenant, Guid todoId, bool done)
+        private readonly string tenant;
+        private readonly Microsoft.Azure.Cosmos.Container dbContainer;
+        public TodoItemService(Microsoft.Azure.Cosmos.Container cosmosContainer,string tenant)
+        {
+            this.dbContainer = cosmosContainer;
+            this.tenant = tenant;
+        }
+
+        public async Task SetDoneAsync(Guid todoId, bool done)
         {
             //throw new NotImplementedException();
         }
 
-        public void CreateItem(TodoItem item)
+        public async Task CreateItemAsync(TodoItem item)
+        {
+            var result = await dbContainer.CreateItemAsync<TodoItem>(item);
+            // TODO : check item response to ensure write is correct
+        }
+
+        public async Task DeleteItemAsync(Guid todoId)
         {
             //throw new NotImplementedException();
         }
 
-        public void DeleteItem(string Tenant, Guid todoId)
-        {
-            //throw new NotImplementedException();
-        }
+        
 
-        public TodoItem GetItem(string Tenant, Guid todoId)
+        public async Task<TodoItem> GetItemAsync( Guid todoId)
         {
-            return new TodoItem()
+            var items = new List<TodoItem>();
+            List<TodoItem> list = new List<TodoItem>();
+            QueryDefinition query = new QueryDefinition("SELECT c from c where c.Tenant = @Tenant AND c.id=@todoId")
+                .WithParameter("@Tenant",tenant)
+                .WithParameter("@todoId", todoId);
+            using (FeedIterator<TodoItem> resultset = dbContainer.GetItemQueryIterator<TodoItem>(query))
             {
-                Id = todoId,
-                Tenant = Tenant,
-                Title = $"GET ITEM {todoId}",
-                Content = $"no content for item {todoId}",
-                Done = ((todoId.ToByteArray()[0] & 1) == 1) ? true : false
-
-            };
-            
+                while (resultset.HasMoreResults)
+                {
+                    FeedResponse<TodoItem> response = await resultset.ReadNextAsync();
+                    //Console.WriteLine("Q1 took {0} ms. RU consumed: {1}, Number of items : {2}", response.Diagnostics.GetClientElapsedTime().TotalMilliseconds, response.RequestCharge, response.Count);
+                    foreach (var item in response)
+                    {
+                        items.Add(item);
+                    }
+                }
+            }
+            return items.FirstOrDefault();
         }
+
+        public async  Task<IEnumerable<TodoItem>> GetItemsAsync()
+        {
+            var items = new List<TodoItem>();
+            List<TodoItem> list = new List<TodoItem>();
+            QueryDefinition query = new QueryDefinition("SELECT c from c where c.Tenant = @Tenant")
+                .WithParameter("@Tenant", tenant);
+            using (FeedIterator<TodoItem> resultset = dbContainer.GetItemQueryIterator<TodoItem>(query))
+            {
+                while (resultset.HasMoreResults)
+                {
+                    FeedResponse<TodoItem> response = await resultset.ReadNextAsync();
+                    //Console.WriteLine("Q1 took {0} ms. RU consumed: {1}, Number of items : {2}", response.Diagnostics.GetClientElapsedTime().TotalMilliseconds, response.RequestCharge, response.Count);
+                    foreach (var item in response)
+                    {
+                        items.Add(item);
+                    }
+                }
+            }
+            return items;
+        }
+
+
     }
 }
