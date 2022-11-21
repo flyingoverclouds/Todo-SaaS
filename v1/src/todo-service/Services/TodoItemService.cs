@@ -17,7 +17,8 @@ namespace todo_service.Services
 
         public async Task SetDoneAsync(Guid todoId, bool done)
         {
-            //throw new NotImplementedException();
+            // TODO : implement a partial update of TodoItems
+            throw new NotImplementedException();
         }
 
         public async Task CreateItemAsync(TodoItem item)
@@ -28,7 +29,8 @@ namespace todo_service.Services
 
         public async Task DeleteItemAsync(Guid todoId)
         {
-            //throw new NotImplementedException();
+            // TODO : v2: implement deletion of a TodoItem 
+            throw new NotImplementedException();
         }
 
         
@@ -72,7 +74,5 @@ namespace todo_service.Services
             }
             return items;
         }
-
-
     }
 }
