@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  todo-service:
+    image: todo-service:latest
+    build:
+      context: .
+      dockerfile: todo-service/Dockerfile
+    environment:
+      EndpointUri: "https://REPLACE_WITH_YOUR_ACCOUNT_NAME.documents.azure.com:443/"
+      PrimaryKey: "REPLACE_WITH_YOUR_KEY"
+      DatabaseId: "TodoSaaS"
+      ContainerId: "Items" 
+  front-razor:
+    image: front-razor:latest
+    build:
+      context: .
+      dockerfile: front-razor/Dockerfile
+    ports:
+      - 6080:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      TodoServiceUri: "http://todo-service:80"

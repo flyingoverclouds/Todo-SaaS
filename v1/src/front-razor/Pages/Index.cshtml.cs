@@ -23,7 +23,7 @@ namespace front_razor.Pages
 
         public async Task OnGet()
         {
-            
+            _logger.LogInformation($"TodoServiceUri={_TodoServiceUri}");
             HttpClient hc = new HttpClient();
             var json = await hc.GetStringAsync($"{_TodoServiceUri}/api/Items"); // Todo-Service running in WSL
             TodoItems = JsonSerializer.Deserialize<List<TodoItem>>(json);
