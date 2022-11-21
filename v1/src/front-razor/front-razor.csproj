@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>front_razor</RootNamespace>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>65f47d24-2b18-4d6f-8033-615f3f4beff9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

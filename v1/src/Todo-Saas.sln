@@ -11,7 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "front-razor", "front-razor\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "front-common", "front-common\front-common.csproj", "{17336A92-AAF0-4C62-95D7-B31A361F8471}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbfiller-dev", "dbfiller-dev\dbfiller-dev.csproj", "{EC4F7BB4-53A6-4551-8A3F-160226281291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbfiller-dev", "dbfiller-dev\dbfiller-dev.csproj", "{EC4F7BB4-53A6-4551-8A3F-160226281291}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31DDE444-6ADC-41CB-9E95-903740CF2117}"
+	ProjectSection(SolutionItems) = preProject
+		build-docker.cmd = build-docker.cmd
+		run-frontrazor-docker.cmd = run-frontrazor-docker.cmd
+		run-todoservice-docker.cmd = run-todoservice-docker.cmd
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

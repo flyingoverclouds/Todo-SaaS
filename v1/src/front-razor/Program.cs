@@ -1,7 +1,11 @@
+using System.Diagnostics;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+Trace.TraceInformation($"Settings: EndpointURI = {builder.Configuration.GetValue<string>("TodoServiceUri")}");
 
 var app = builder.Build();
 
@@ -17,5 +21,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
 
 app.Run();

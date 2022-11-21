@@ -10,17 +10,22 @@ namespace front_razor.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly IConfiguration _configuration;
+        private readonly string _TodoServiceUri;
 
         public List<TodoItem> TodoItems { get; private set; }
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, IConfiguration config)
         {
-            _logger = logger;
+            this._logger = logger;
+            this._configuration = config;
+            this._TodoServiceUri = _configuration.GetValue<string>("TodoServiceUri");
         }
 
         public async Task OnGet()
         {
+            
             HttpClient hc = new HttpClient();
-            var json = await hc.GetStringAsync("http://localhost:5006/api/Items"); // Todo-Service running in WSL
+            var json = await hc.GetStringAsync($"{_TodoServiceUri}/api/Items"); // Todo-Service running in WSL
             TodoItems = JsonSerializer.Deserialize<List<TodoItem>>(json);
         }
     }
