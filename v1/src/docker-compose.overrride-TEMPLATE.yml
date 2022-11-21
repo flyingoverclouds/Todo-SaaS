@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  todo-service:
+    environment:
+      EndpointUri: "https://todo-devlocal-nc.documents.azure.com:443/"
+      PrimaryKey: "TfAww5fJfBwnO7YRkKYVUC5BDYThcjNcO5BgKUNPZGZM93TcAnHl6hLZekRRE9A2SQs5UTAjcYrBACDbpipqWg=="

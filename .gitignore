@@ -352,3 +352,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /v1/src/run-todoservice-docker.cmd
+*.override.yml
