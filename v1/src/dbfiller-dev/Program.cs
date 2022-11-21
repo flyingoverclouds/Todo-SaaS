@@ -75,9 +75,9 @@ namespace dbfiller_dev
 
             foreach(var i in items)
             {
-                Console.Write($"ITM #{i.Id} ...");
+                Console.Write($"ITM #{i.id} ...");
                 var result = await container.CreateItemAsync<TodoItem>(i);
-                Console.WriteLine($"ID={result.Resource.Id}      RUs={result.RequestCharge} \n");
+                Console.WriteLine($"ID={result.Resource.id}      RUs={result.RequestCharge} \n");
             }
             
         }
@@ -95,12 +95,12 @@ namespace dbfiller_dev
                 {
                     d.Add(new TodoItem()
                     {
-                        Id = Guid.NewGuid(),
-                        Timestamp = DateTime.Now.AddDays(-rnd.NextInt64(120)),
-                        Tenant = $"T{t}",
-                        Title = $"Todo #{nb}",
-                        Content = $"Ceci est le todo {nb} : T{t}#{i}",
-                        Done = rnd.NextInt64() % 1 == 1
+                        id = Guid.NewGuid(),
+                        timestamp = DateTime.Now.AddDays(-rnd.NextInt64(120)),
+                        tenant = $"T{t}",
+                        title = $"Todo #{nb}",
+                        content = $"Ceci est le todo {nb} : T{t}#{i}",
+                        done = rnd.NextInt64() % 1 == 1
                     });
                     nb++;
                 }

@@ -35,31 +35,28 @@ namespace todo_service.Services
 
         public async Task<TodoItem> GetItemAsync( Guid todoId)
         {
-            var items = new List<TodoItem>();
-            List<TodoItem> list = new List<TodoItem>();
-            QueryDefinition query = new QueryDefinition("SELECT c from c where c.Tenant = @Tenant AND c.id=@todoId")
+            TodoItem item = null; ;
+            
+            QueryDefinition query = new QueryDefinition("SELECT * from Items i where i.tenant = @Tenant AND i.id=@TodoId")
                 .WithParameter("@Tenant",tenant)
-                .WithParameter("@todoId", todoId);
+                .WithParameter("@TodoId", todoId);
             using (FeedIterator<TodoItem> resultset = dbContainer.GetItemQueryIterator<TodoItem>(query))
             {
-                while (resultset.HasMoreResults)
+                if (resultset.HasMoreResults)
                 {
                     FeedResponse<TodoItem> response = await resultset.ReadNextAsync();
-                    //Console.WriteLine("Q1 took {0} ms. RU consumed: {1}, Number of items : {2}", response.Diagnostics.GetClientElapsedTime().TotalMilliseconds, response.RequestCharge, response.Count);
-                    foreach (var item in response)
-                    {
-                        items.Add(item);
-                    }
+                    item = response.FirstOrDefault();
                 }
             }
-            return items.FirstOrDefault();
+            return item;
         }
 
         public async  Task<IEnumerable<TodoItem>> GetItemsAsync()
         {
+
             var items = new List<TodoItem>();
             List<TodoItem> list = new List<TodoItem>();
-            QueryDefinition query = new QueryDefinition("SELECT c from c where c.Tenant = @Tenant")
+            QueryDefinition query = new QueryDefinition("SELECT * from Items i where i.tenant = @Tenant")
                 .WithParameter("@Tenant", tenant);
             using (FeedIterator<TodoItem> resultset = dbContainer.GetItemQueryIterator<TodoItem>(query))
             {

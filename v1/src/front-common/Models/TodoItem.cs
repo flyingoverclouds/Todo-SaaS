@@ -5,15 +5,20 @@ namespace front_common.Models
 {
     public class TodoItem
     {
-        [JsonProperty(PropertyName="id")]
-        public Guid Id { get; set; } = Guid.NewGuid();
-        [JsonPropertyName("partitionKey")]
-        public string Tenant { get; set; }
-        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+        
+        public Guid id { get; set; } = Guid.NewGuid();
+                
+        public string tenant { get; set; }
 
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public bool Done { get; set; } = false;
+        public DateTime timestamp { get; set; } = DateTime.UtcNow;
+
+        
+        public string title { get; set; }
+        
+
+        public string content { get; set; }
+
+        public bool done { get; set; } = false;
 
     }
 }
