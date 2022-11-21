@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: todo-service/Dockerfile
     environment:
-# You can create a docker-compose.override.ym file and set only the sensible data in it. 
+# You can create a docker-compose.override.yml file and set only the sensible data in it. 
 # It will be but automatically used to ovveride the value in from this file, but it will be ignored by git commit
       EndpointUri: "https://REPLACE_WITH_YOUR_ACCOUNT_NAME.documents.azure.com:443/"
       PrimaryKey: "REPLACE_WITH_YOUR_KEY"
