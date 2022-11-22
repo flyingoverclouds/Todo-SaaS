@@ -7,8 +7,8 @@ services:
     environment:
 # You can create a docker-compose.override.yml file and set only the sensible data in it. 
 # It will be but automatically used to ovveride the value in from this file, but it will be ignored by git commit
-      EndpointUri: "OVERRIDEN"
-      PrimaryKey: "OVERRIDEN"
+      EndpointUri: "https://todo-devlocal-nc.documents.azure.com:443/"
+      PrimaryKey: "TfAww5fJfBwnO7YRkKYVUC5BDYThcjNcO5BgKUNPZGZM93TcAnHl6hLZekRRE9A2SQs5UTAjcYrBACDbpipqWg=="
       DatabaseId: "TodoSaaS"
       ContainerId: "Items" 
   front-razor:
