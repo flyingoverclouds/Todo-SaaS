@@ -21,14 +21,25 @@ namespace front_razor.Pages
 
         public async Task OnGet()
         {
-            _logger.LogInformation($"TodoServiceUri={_TodoServiceUri}");
-            HttpClient hc = new HttpClient();
-            ApiEnvironmentVariables = await hc.GetStringAsync($"{_TodoServiceUri}/api/Help/Env");
+            try
+            {
+                _logger.LogInformation($"TodoServiceUri={_TodoServiceUri}");
+                HttpClient hc = new HttpClient();
+                ApiEnvironmentVariables = await hc.GetStringAsync($"{_TodoServiceUri}/api/Help/Env");
+            }
+            catch(Exception ex)
+            {
+                ApiEnvironmentVariables = $"Exception while calling {_TodoServiceUri}/api/Help/Env : {ex.Message}";
+                _logger.LogError(ex, ApiEnvironmentVariables);
+            }
 
             StringBuilder sb = new StringBuilder();
             foreach (var evname in Environment.GetEnvironmentVariables().Keys)
             {
-                sb.AppendLine($"{evname.ToString()}={Environment.GetEnvironmentVariable(evname.ToString())}");
+                var evValue = Environment.GetEnvironmentVariable(evname.ToString());
+                if (evValue.EndsWith("==") || evname.ToString().ToLower().Contains("key"))
+                    evValue = evValue.Substring(0, Math.Min(evValue.Length, 5)) + "**REDACTED**";
+                sb.AppendLine($"{evname.ToString()}={evValue}");
             }
             FrontEnvironmentVariables = sb.ToString();
         }

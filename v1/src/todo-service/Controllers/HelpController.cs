@@ -32,26 +32,13 @@ namespace todo_service.Controllers
             StringBuilder sb = new StringBuilder();
             foreach(var evname in Environment.GetEnvironmentVariables().Keys)
             {
-                sb.AppendLine($"{evname.ToString()}={Environment.GetEnvironmentVariable(evname.ToString())}");
+                var evValue = Environment.GetEnvironmentVariable(evname.ToString());
+                if (evValue.EndsWith("==") || evname.ToString().ToLower().Contains("key"))
+                    evValue = evValue.Substring(0, Math.Min(evValue.Length, 5)) + "**REDACTED**";
+                sb.AppendLine($"{evname.ToString()}={evValue}");
             }
             return sb.ToString();
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<string> Get(string id)
-        //{
-        //    return id;
-        //}
-
-        //[HttpPost]
-        //public async void Post([FromBody] string todoJson)
-        //{
-        //    await dataservice.CreateItemAsync(JsonConvert.DeserializeObject<TodoItem>(todoJson));
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async void Delete(Guid id)
-        //{
-        //}
     }
 }
