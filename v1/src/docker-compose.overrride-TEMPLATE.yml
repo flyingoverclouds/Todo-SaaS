@@ -1,6 +1,9 @@
 version: '3.9'
+# Copy this file a 'docker-compose.override.yml' and set the correct value
 services:
   todo-service:
     environment:
-      EndpointUri: "https://todo-devlocal-nc.documents.azure.com:443/"
-      PrimaryKey: "TfAww5fJfBwnO7YRkKYVUC5BDYThcjNcO5BgKUNPZGZM93TcAnHl6hLZekRRE9A2SQs5UTAjcYrBACDbpipqWg=="
+      EndpointUri: "https://REPLACE_WITH_THE_NAME_OF_YOUR_ACCOUNT.documents.azure.com:443/"
+      PrimaryKey: "REPLACE_WITH_PRIMARY_KEY_OF_YOUR_COSMOSDB_ACCOUNT"
+      #DatabaseId: "TodoSaaS"
+      #ContainerId: "Items" 
