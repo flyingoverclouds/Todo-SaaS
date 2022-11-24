@@ -27,6 +27,14 @@ namespace todo_service.Services
             // TODO : check item response to ensure write is correct
         }
 
+
+        public async Task UpdateItemAsync(TodoItem item)
+        {
+            var result = await dbContainer.UpsertItemAsync<TodoItem>(item);
+            // TODO : check item response to ensure write is correct
+        }
+
+
         public async Task DeleteItemAsync(Guid todoId)
         {
             // TODO : v2: implement deletion of a TodoItem 

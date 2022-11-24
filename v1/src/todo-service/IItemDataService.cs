@@ -9,5 +9,6 @@ namespace todo_service
         Task CreateItemAsync(TodoItem item);
         Task DeleteItemAsync(Guid todoId);
         Task SetDoneAsync(Guid todoId, bool done);
+        Task UpdateItemAsync(TodoItem item);
     }
 }

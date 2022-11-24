@@ -46,19 +46,18 @@ namespace todo_service.Controllers
 
         // POST api/<ItemApi>
         /// <summary>
-        /// ajoute un nouveau todo item dans la db
+        /// MODIFICATION d'un todo item dans la db
         /// </summary>
         /// <param name="value">TodoItem en Json</param>
         [HttpPost]
         public async void Post([FromBody] string todoJson)
         {
-            await dataservice.CreateItemAsync(JsonConvert.DeserializeObject<TodoItem>(todoJson));
-
-
+            var todo = JsonConvert.DeserializeObject<TodoItem>(todoJson);
+            await dataservice.UpdateItemAsync(todo);
         }
 
 
-        // Todo : add update checked status api 
+        // Todo : add CREATE checked status api 
         //// PUT api/<ItemApi>/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
