@@ -49,18 +49,30 @@ namespace front_razor.Pages
 
         public async Task OnPost()
         {
-            _logger.LogInformation("Update.OnPost()");
-            
-            TodoItem newItem = new TodoItem()
+            try
             {
-                tenant = Request.Form["Todo.tenant"],
-                id = Guid.Parse(Request.Form["Todo.id"]),
-                timestamp = DateTime.UtcNow,
-                title = Request.Form["Todo.title"],
-                content= Request.Form["Todo.content"],
-                done= (Request.Form["Todo.done"]=="on")?true:false
-            };
-            _logger.LogInformation("Post !");
+                TodoItem newItem = new TodoItem()
+                {
+                    tenant = Request.Form["Todo.tenant"],
+                    id = Guid.Parse(Request.Form["Todo.id"]),
+                    timestamp = DateTime.UtcNow,
+                    title = Request.Form["Todo.title"],
+                    content = Request.Form["Todo.content"],
+                    done = (Request.Form["Todo.done"] == "on") ? true : false
+                };
+                HttpClient hc = new HttpClient();
+                var res = await hc.PostAsync($"{_settings.TodoServiceUri}/api/Items/", 
+                    JsonContent.Create(JsonSerializer.Serialize<TodoItem>(newItem)));
+                if (!res.IsSuccessStatusCode)
+                {
+                    ErrorMessage = $"Erreur http {res.StatusCode} : {res.ReasonPhrase}";
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Exception Update.OnPost() {ex.Message}");
+            }
             Response.Redirect("/");
         }
 
