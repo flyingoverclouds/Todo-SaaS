@@ -6,12 +6,10 @@
 <h1>@ViewData["Title"]</h1>
 <hr/>
 
-
-
 @if (Model.PreviousDone!=null) {
-    <div>Done status was : @Model.PreviousDone<br />
+@*    <div>Done status was : @Model.PreviousDone<br />
     </div>
-}
+*@}
 
 @if (Model.Todo != null) {
     <div style="text-align: left;border-style: solid; border-width:1px; border-color: lightseagreen; margin-block: 5px">
@@ -27,5 +25,5 @@
 
 @if (Model.ErrorMessage != null)
 {
-    <div>ERROR : @Model.ErrorMessage</div>
+    <div class="text-danger">ERROR : @Model.ErrorMessage</div>
 }

@@ -11,14 +11,14 @@ namespace todo_service.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        const string FixedTenant = "T1";
+        const string CurrentTenant = "T1";
 
         
         IItemDataService dataservice = null;
 
         public ItemsController(Microsoft.Azure.Cosmos.Container dbContainer)
         {
-            dataservice = new TodoItemService(dbContainer,FixedTenant);
+            dataservice = new TodoItemService(dbContainer,CurrentTenant);
         }
 
         // GET: api/Items
@@ -50,19 +50,26 @@ namespace todo_service.Controllers
         /// </summary>
         /// <param name="value">TodoItem en Json</param>
         [HttpPost]
-        public async void Post([FromBody] string todoJson)
+        public async Task Post([FromBody] string todoJson)
         {
             var todo = JsonConvert.DeserializeObject<TodoItem>(todoJson);
             await dataservice.UpdateItemAsync(todo);
         }
 
+       // PUT api/<ItemApi>/5
+       [HttpPut("{id}")]
+        public async Task<StatusCodeResult> Put(Guid? id, [FromBody] string todoJson)
+        {
+            if (id == null)
+                return new NotFoundResult();
+            if (string.IsNullOrEmpty(todoJson))
+                return new BadRequestResult();
+            var todo = JsonConvert.DeserializeObject<TodoItem>(todoJson);
+            todo.tenant = CurrentTenant;
 
-        // Todo : add CREATE checked status api 
-        //// PUT api/<ItemApi>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+            await dataservice.UpdateItemAsync(todo);
+            return new OkResult();
+        }
 
         // DELETE api/<ItemApi>/5
         /// <summary>
