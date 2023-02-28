@@ -1,0 +1,1 @@
+docker build -t "todo-portal-front:latest" -f portal-front/. .
