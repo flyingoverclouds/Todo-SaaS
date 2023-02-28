@@ -1,0 +1,18 @@
+﻿@page "/tenant-status"
+@model portal_front.Pages.tenant_statusModel
+@{
+}
+
+<h2 style="color: orange">En attente d'implémentation ....</h2>
+
+@using(Html.BeginForm())
+{
+    <div>
+        <br />
+        Identifiant du tenant : <input type="text" value="@Model.TenantId" placeholder="[A-Z;0-9]" asp-for="TenantId" />
+        <br /><br />
+        <button>Récupérer le status</button>
+        <br>
+        <span style="color: red">@Model.ErrorMessage</span>
+    </div>
+}

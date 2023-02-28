@@ -14,7 +14,7 @@ namespace portal_front.Pages
 
         public void OnGet()
         {
-
+           
         }
     }
 }

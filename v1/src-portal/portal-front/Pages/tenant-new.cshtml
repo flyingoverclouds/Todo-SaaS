@@ -1,0 +1,24 @@
+﻿@page "/tenant-new"
+@model portal_front.Pages.tenant_newModel
+@{
+    ViewData["Title"] = "Nouveau tenant";
+}
+<h1>@ViewData["Title"]</h1>
+
+
+@using(Html.BeginForm())
+{
+    <div>
+        <br />
+        Identifiant du tenant : <input type="text" value="@Model.TenantId" placeholder="[A-Z;0-9]" asp-for="TenantId" />
+        <br /><br />
+        Type de tenant : @Html.DropDownListFor(m => m.SkuCode, new SelectList(Model.AvailableSkus,"SkuCode","SkuName"))
+        <br /><br />
+        Code de sécurité : <input type="password" value="@Model.SecurityCode" asp-for="SecurityCode"/>
+        <br /><br />
+        <button>Créer</button>
+        <br>
+        <span style="color: red">@Model.ErrorMessage</span>
+        <br /><span style="color: forestgreen">@Model.SuccessMessage</span>
+    </div>
+}
