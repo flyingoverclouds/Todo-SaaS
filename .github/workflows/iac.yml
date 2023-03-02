@@ -1,0 +1,125 @@
+name: Deploy Environnment
+on:
+  repository_dispatch:
+
+jobs:
+  Deploy_Environnment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.7
+
+      - name: Modify version.tf
+        run: |
+          cd ./IaC/Terraform/aca
+          sed -i -e s%\MY_TFSTATE%${{ toJSON(github.event.action) }}.tfstate% ./version.tf
+          cat version.tf
+
+      - name: Terraform init
+        run: |
+          cd ./IaC/Terraform/aca 
+          terraform init -backend-config="sas_token=${{ secrets.BACKENDSTORAGESASTOKEN }}"
+
+      - name: Terraform plan
+        run: |
+          cd ./IaC/Terraform/aca
+          terraform plan \
+            -var 'AzureSubscriptionID=${{ secrets.SUBSCRIPTIONID }}' \
+            -var 'AzureClientSecret=${{ secrets.CLIENTSECRET }}' \
+            -var 'AzureClientID=${{ secrets.CLIENTID }}' \
+            -var 'AzureTenandID=${{ secrets.TENANTID }}' \
+            -var Location=westeurope \
+            -var CodeClient=${{ toJSON(github.event.action) }} \
+            -var RgName=Rg_Client_${{ toJSON(github.event.action) }} \
+            -var EnvLogsName=law-${{ toJSON(github.event.action) }} \
+            -var EnvAcaName=aca-env-${{ toJSON(github.event.action) }} \
+            -var CosmosDBAccountName=todo-${{ toJSON(github.event.action) }} \
+            -var CosmosDataBaseName=TodoSaaS \
+            -var ContainerNameCosmasDB=Items \
+            -var Throughput=400 \
+            -out=acaplan.tfplan
+
+      - name: Terraform apply
+        run: |
+          cd ./IaC/Terraform/aca
+          terraform apply acaplan.tfplan
+
+      - name: Client Number
+        run: |
+          echo ${{ toJSON(github.event.action) }}
+
+      - name: Login Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Applicaion aca
+        run: |
+          az config set extension.use_dynamic_install=yes_without_prompt
+
+          KEYCOSMOS=`az cosmosdb keys list \
+            --name todo-${{ toJSON(github.event.action) }} \
+            --resource-group Rg_Client_${{ toJSON(github.event.action) }} \
+            --type keys -o tsv \
+            --query "primaryMasterKey"`
+
+          KEYACR=`az acr credential show \
+            --name ${{ vars.ACR_NAME }} \
+            --resource-group ${{ vars.RG_NAME }} -o tsv \
+            --query "passwords[0].value"`
+
+          az containerapp create \
+            --name api-${{ toJSON(github.event.action) }} \
+            --resource-group Rg_Client_${{ toJSON(github.event.action) }} \
+            --environment aca-env-${{ toJSON(github.event.action) }} \
+            --image ${{ vars.ACR_NAME }}.azurecr.io/todo-service:1.0.0 \
+            --registry-username ${{ vars.ACR_NAME }} \
+            --registry-server ${{ vars.ACR_NAME }}.azurecr.io \
+            --registry-password $KEYACR \
+            --env-vars EndpointUri=https://todo-${{toJSON(github.event.action)}}.documents.azure.com:443/ PrimaryKey=$KEYCOSMOS DatabaseId="TodoSaaS" ContainerId="Items" \
+            --target-port 80 \
+            --ingress 'internal' \
+            --query configuration.ingress.fqdn
+
+          URLAPI=`az containerapp show \
+            --resource-group Rg_Client_${{ toJSON(github.event.action) }} \
+            --name api-${{ toJSON(github.event.action) }} \
+            --query properties.configuration.ingress.fqdn \
+            --output tsv`
+          
+          az containerapp create \
+            --name front-${{ toJSON(github.event.action) }} \
+            --resource-group Rg_Client_${{ toJSON(github.event.action) }} \
+            --environment aca-env-${{ toJSON(github.event.action) }} \
+            --image ${{ vars.ACR_NAME }}.azurecr.io/front-razor:1.0.0 \
+            --env-vars ASPNETCORE_ENVIRONMENT=Development TodoServiceUri=https://$URLAPI \
+            --target-port 80 \
+            --ingress 'external' \
+            --registry-username ${{ vars.ACR_NAME }} \
+            --registry-server ${{ vars.ACR_NAME }}.azurecr.io \
+            --registry-password $KEYACR \
+            --query configuration.ingress.fqdn
+      
+      - name: Send Message
+        run : |
+          URLFRONT=`az containerapp show \
+            --resource-group Rg_Client_${{ toJSON(github.event.action) }} \
+            --name front-${{ toJSON(github.event.action) }} \
+            --query properties.configuration.ingress.fqdn \
+            --output tsv`
+
+          if curl -s --request GET https://$URLFRONT | grep "Mes Toudoux" > /dev/null; then 
+             az storage message put \
+               --queue-name deploy-workflow-status \
+               --content ${{ toJSON(github.event.action) }}#https://$URLFRONT \
+               --time-to-live 86400 \
+               --account-name todosaastenantdb \
+               --sas-token ${{ secrets.QUEUETOKEN }}
+          else
+             echo " Probleme site"
+          fi
