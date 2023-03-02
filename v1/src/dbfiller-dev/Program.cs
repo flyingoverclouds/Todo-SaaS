@@ -29,8 +29,8 @@ namespace dbfiller_dev
         private Container container;
 
         // The name of the database and container we will create
-        private string databaseId = ConfigurationManager.AppSettings["DatabaseId"];
-        private string containerId = ConfigurationManager.AppSettings["ContainerId"];
+        private static readonly string databaseId = ConfigurationManager.AppSettings["DatabaseId"];
+        private static readonly string containerId = ConfigurationManager.AppSettings["ContainerId"];
 
         public static async Task Main(string[] args)
         {
