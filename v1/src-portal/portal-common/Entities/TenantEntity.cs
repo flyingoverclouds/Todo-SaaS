@@ -61,6 +61,11 @@ namespace MesToudoux.Portal.Common.Entities
         public bool Deleted { get; set; }
 
         /// <summary>
+        /// if true, all action for changin the tenant status are forbidden (deactivate, delete, ...)
+        /// </summary>
+        public bool Locked { get; set; }
+
+        /// <summary>
         /// root url for deployed tenant ( use for redirecting from tenantid.customers.mestoudoux.com )
         /// </summary>
         public string FQDN { get; set; }
