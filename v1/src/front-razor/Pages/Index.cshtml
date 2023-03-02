@@ -1,0 +1,27 @@
+﻿@page
+@using front_common.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Mes Toudoux";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Toudoux : </h1>
+    
+
+    @foreach(var i in Model.TodoItems)
+    {
+        <div style="text-align: left;border-style: solid; border-width:1px; border-color: lightseagreen; margin-block: 5px">
+            <span> <b>@i.title </b>| done : @i.done | #@i.id </span><br />
+        <i>@i.content</i>
+        <br />
+            <a href="/Changedone?id=@i.id">Changer status</a>
+            | <a href="/Update?id=@i.id">Modifier</a>
+            | <a href="/NotImplemented?id=@i.id">Effacer</a>
+        </div>
+    }
+    <hr/>
+
+
+</div>

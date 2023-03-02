@@ -1,0 +1,38 @@
+﻿@page "/tenant-list"
+@model portal_front.Pages.tenant_listModel
+@{
+}
+
+
+<h2 style="color: orange">En attente d'implémentation ....</h2>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>fqdn</th>
+        <th>CreationDate</th>
+        <th>InfraDeployed</th>
+        <th>DnsDeployed</th>
+        <th>Activated</th>
+        <th>Suspended</th>
+        <th>Deleted</th>
+    </tr>
+
+@foreach(var tenant in Model.Tenants)
+    {
+        <tr>
+            <td>@tenant.PartitionKey<br/></td>
+            <td>@tenant.Name</td>
+            <td>@tenant.FQDN</td>
+            <td>@tenant.CreationDate</td>
+            <td>@tenant.InfraDeployed</td>
+            <td>@tenant.DnsDeployed</td>
+            <td>@tenant.Activated</td>
+            <td>@tenant.Suspended</td>
+            <td>@tenant.Deleted</td>
+        </tr>
+    }
+</table>
+
+

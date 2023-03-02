@@ -1,0 +1,1 @@
+docker run -p 6080:80 "front-razor:latest" -e TodoServiceUri="http://localhost:6001"

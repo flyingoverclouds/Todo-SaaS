@@ -1,0 +1,35 @@
+﻿@page 
+@model UpdateModel
+@{
+    ViewData["Title"] = $"Modif toudou {Model?.Todo?.id}";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="text-danger">ERROR : @Model.ErrorMessage</div><br/>
+}
+
+@if (Model.Todo != null)
+{
+    <form method="post">
+        <div class="form-group" style="text-align: left;border-style: solid; border-width:1px; border-color: lightseagreen; margin: 5px; padding: 10px;">
+            <input type="hidden" asp-for="Todo!.id"/>
+            <input type="hidden" asp-for="Todo!.tenant" />
+            <label asp-for="Todo!.title" class="control-label">Title :</label>
+            <input asp-for="Todo!.title" class="form-control" /><br/>
+            
+@*            <label asp-for="Todo!.done" class="control-label form-check-label">Done : </label>
+            <input asp-for="Todo!.done" class="form-control form-check-input" type="checkbox" /><br />    
+*@
+            <input type="checkbox" checked="@Model.Todo.done" name="Todo.done"/><br/>
+
+            <label asp-for="Todo!.content" class="control-label">Content: </label>
+            <textarea asp-for="Todo!.content" class="form-control"></textarea><br />
+            <br/>
+            Last Update : @Model?.Todo.timestamp<br />
+        </div>
+        <input type="submit" value="Save" class="btn btn-primary"/>
+    </form>
+}
+

@@ -1,0 +1,22 @@
+﻿@page
+@model HelpModel
+@{
+    ViewData["Title"] = "Help Page";
+}
+<h1>@ViewData["Title"]</h1>
+
+<hr/>
+<h2>API Environment variables : </h2>
+URL : @Model.TodoServiceUri<br/>
+<pre style="margin-left: 15px;">
+@Model.ApiEnvironmentVariables
+</pre>
+
+<hr/>
+<h2>FRONT Environment variables : </h2>
+<pre style="margin-left: 15px;">
+@Model.FrontEnvironmentVariables
+</pre>
+
+<hr/>
+

@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  todo-service:
+    image: todo-service:latest
+    build:
+      context: .
+      dockerfile: todo-service/Dockerfile
+    environment:
+# You can create a docker-compose.override.yml file and set only the sensible data in it. 
+# It will be but automatically used to ovveride the value in from this file, but it will be ignored by git commit
+      EndpointUri: "OVERRIDEN"
+      PrimaryKey: "OVERRIDEN"
+      DatabaseId: "TodoSaaS"
+      ContainerId: "Items" 
+  front-razor:
+    image: front-razor:latest
+    build:
+      context: .
+      dockerfile: front-razor/Dockerfile
+    ports:
+      - 6080:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      TodoServiceUri: "http://todo-service"

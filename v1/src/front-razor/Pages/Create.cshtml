@@ -1,0 +1,32 @@
+﻿@page
+@using front_common.Models
+@model front_razor.Pages.CreateModel
+@{
+    ViewData["Title"] = $"Nouveau toudou";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Toudou : </h1>
+    
+@using(Html.BeginForm())
+{
+        <div style="width: 1024px; text-align: left;">
+             <br />
+            Titre : @Html.TextBoxFor(m=> m.Title) 
+            <br/><br/>
+             
+            Contenu : @Html.TextBoxFor( m=>m.Content); 
+            <br /><br />
+
+            Done : @Html.CheckBoxFor( m => m.Done)
+            <br /><br />
+
+            <button>Créer</button>
+            <br/>
+            <br/>
+            <span style="color: red">@Model.ErrorMessage</span>
+        </div>
+}
+
+</div>

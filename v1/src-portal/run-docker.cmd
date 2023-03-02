@@ -1,0 +1,1 @@
+docker run -p 7080:80 "todo-portal-front:latest" 

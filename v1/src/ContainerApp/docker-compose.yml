@@ -1,0 +1,21 @@
+version: '3'
+services:
+  todo-service:
+    image: acrtododevlocalnc.azurecr.io/todo-service:latest
+    expose:
+    - 80    
+    environment:
+# AZ CONTAINERAPP COMPOSE does not support docker-compose.override.yml ... soon i hope ...
+      EndpointUri: "TO_SET_IN_A_COPY_OF_THIS_FILE"
+      PrimaryKey: "TO_SET_IN_A_COPY_OF_THIS_FILE"
+      DatabaseId: "TodoSaaS"
+      ContainerId: "Items" 
+  front-razor:
+    image: acrtododevlocalnc.azurecr.io/front-razor:latest
+    ports:
+      - 80:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - TodoServiceUri=https://todo-service
+    depends_on:
+      - todo-service

@@ -1,0 +1,29 @@
+﻿@page
+@model ChangeDoneModel
+@{
+    ViewData["Title"] = "Change done status";
+}
+<h1>@ViewData["Title"]</h1>
+<hr/>
+
+@if (Model.PreviousDone!=null) {
+@*    <div>Done status was : @Model.PreviousDone<br />
+    </div>
+*@}
+
+@if (Model.Todo != null) {
+    <div style="text-align: left;border-style: solid; border-width:1px; border-color: lightseagreen; margin-block: 5px">
+        <span> <b>@Model.Todo.title </b>| done : @Model.Todo.done | #@Model.Todo.id </span><br />
+        <i>@Model.Todo.content</i>
+        <br />
+        <a href="/Changedone?id=@Model.Todo.id">Changer status</a>
+        | <a href="/Update?id=@Model.Todo.id">Modifier</a>
+        | <a href="/NotImplemented?id=@Model.Todo.id">Effacer</a>
+    </div>
+}
+
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="text-danger">ERROR : @Model.ErrorMessage</div>
+}
