@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "portal_functions": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7023"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "httpPort": 33965,
+      "useSSL": false
+    }
+  }
+}

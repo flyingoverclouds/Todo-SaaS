@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		run-docker.cmd = run-docker.cmd
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "portal-functions", "portal-functions\portal-functions.csproj", "{C7AC9F5A-4CB5-4A47-87D5-F42E73263F4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "portal-common", "portal-common\portal-common.csproj", "{C971A465-F565-4CD5-B5F2-42EAD039660C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +26,14 @@ Global
 		{53DB4761-3F5A-4C6A-8502-F502B3AFC41F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53DB4761-3F5A-4C6A-8502-F502B3AFC41F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53DB4761-3F5A-4C6A-8502-F502B3AFC41F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7AC9F5A-4CB5-4A47-87D5-F42E73263F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7AC9F5A-4CB5-4A47-87D5-F42E73263F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7AC9F5A-4CB5-4A47-87D5-F42E73263F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7AC9F5A-4CB5-4A47-87D5-F42E73263F4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C971A465-F565-4CD5-B5F2-42EAD039660C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C971A465-F565-4CD5-B5F2-42EAD039660C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C971A465-F565-4CD5-B5F2-42EAD039660C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C971A465-F565-4CD5-B5F2-42EAD039660C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
