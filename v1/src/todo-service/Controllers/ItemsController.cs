@@ -44,7 +44,7 @@ namespace todo_service.Controllers
             return await dataservice.GetItemAsync(id);
         }
 
-        // POST api/<ItemApi>
+        // POST api/Items
         /// <summary>
         /// MODIFICATION d'un todo item dans la db
         /// </summary>
@@ -56,7 +56,7 @@ namespace todo_service.Controllers
             await dataservice.UpdateItemAsync(todo);
         }
 
-       // PUT api/<ItemApi>/5
+       // PUT api/Items/5
        [HttpPut("{id}")]
         public async Task<StatusCodeResult> Put(Guid? id, [FromBody] string todoJson)
         {
