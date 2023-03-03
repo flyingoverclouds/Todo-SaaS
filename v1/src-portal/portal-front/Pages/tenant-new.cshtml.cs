@@ -8,6 +8,7 @@ using portal_front.Models;
 using System.Diagnostics;
 using System.Drawing;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace portal_front.Pages
 {
@@ -111,7 +112,7 @@ namespace portal_front.Pages
             // TODO : push message to queue to trigger infrastructure creation
             QueueClient qc = new QueueClient(new Uri(_configuration.GetValue<string>("TenantCreationRequestQueueConnectionString")));
             var creationRequestMsg = $"{TenantId}";
-            var receipt = await qc.SendMessageAsync(creationRequestMsg);
+            var receipt = await qc.SendMessageAsync(Convert.ToBase64String(Encoding.UTF8.GetBytes(creationRequestMsg)));
 
             Trace.TraceInformation($"Tenant creation requested : TenantId={TenantId}   MessageId={receipt.Value.MessageId}"); 
 

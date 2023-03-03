@@ -2,12 +2,12 @@
   "profiles": {
     "portal_functions": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7023"
+      "commandLineArgs": "--port 7053"
     },
     "Docker": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "httpPort": 33965,
+      "httpPort": 31907,
       "useSSL": false
     }
   }

@@ -5,12 +5,12 @@ using Microsoft.Extensions.Logging;
 
 namespace portal_functions
 {
-    public class  CreateTenantRequestFunction
+    public class CreateTenantRequestFunction
     {
         [FunctionName("CreateTenantRequestFunction")]
-        public void Run([QueueTrigger("tenant-creation-request", Connection = "TenantCreationRequestQueue")]string myQueueItem, ILogger log)
+        public void Run([QueueTrigger("tenant-creation-request", Connection = "QueueStorageCnxStr")]string creationRequestMessage, ILogger log)
         {
-            log.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
+            log.LogInformation($"CreateTenantRequestFunction: creation request for tenant : [{creationRequestMessage}]");
         }
     }
 }
