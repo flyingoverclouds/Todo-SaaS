@@ -98,6 +98,7 @@ namespace portal_front.Pages
                 PartitionKey = TenantId,
                 RowKey = TenantId,
                 Name = $"Tenant {TenantId}",
+                Sku=SkuCode,
                 CreationDate = DateTime.UtcNow,
                 FQDN=string.Empty,
                 InfraDeployed =false,

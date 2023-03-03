@@ -31,6 +31,10 @@ namespace MesToudoux.Portal.Common.Entities
         public string Name { get; set; }
 
         /// <summary>
+        /// Code the current SKU
+        /// </summary>
+        public string Sku { get; set; }
+        /// <summary>
         /// Date of creation request (for birthday billing date)
         /// </summary>
         public DateTime CreationDate { get; set; }
