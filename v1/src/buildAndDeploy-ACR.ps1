@@ -1,5 +1,6 @@
 $ACRNAME="todosaas"
-$BUILDTAG=Get-date -Format FileDateTime
+#$BUILDTAG=Get-date -Format FileDateTime
+$BUILDTAG="1.0.0"
 $FrontRazorName="front-razor"
 $FrontRazorImgName=$FrontRazorName + ":" + $BUILDTAG
 $TodoServiceName="todo-service"
