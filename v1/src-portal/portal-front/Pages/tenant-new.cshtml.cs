@@ -117,8 +117,6 @@ namespace portal_front.Pages
 
             this.SuccessMessage = $"La demande de création du tenant [{TenantId}] est prise en compte. RequestId={receipt.Value.MessageId}";
             this.SecurityCode = string.Empty;
-            
-        
         }
     }
 }
