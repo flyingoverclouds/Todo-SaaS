@@ -3,9 +3,9 @@ terraform {
 
 
   backend "azurerm" {
-    resource_group_name  = "Rg-Be-Terraform"
-    storage_account_name = "bedemoramaterraform"
-    container_name       = "tfstate"
+    resource_group_name  = "TodoSaaS-common-infra"
+    storage_account_name = "tdsiacterraform"
+    container_name       = "tenantdeploy"
     key                  = "MY_TFSTATE"
   }
 
