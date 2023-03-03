@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "GithubBearer": "REPLACE_WITH_YOUR_GITHUB_PAT",
+    "GithubRepo": "flyingoverclouds/Todo-SaaS-Tenant-Deploy",
+    "QueueStorageCnxStr": "UseDevelopmentStorage=true",
+    "TenantDbCnxStr": "UseDevelopmentStorage=true"
+  }
+}
