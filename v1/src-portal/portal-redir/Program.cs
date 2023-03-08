@@ -27,7 +27,7 @@ app.MapGet("/{tenantId}", async (string tenantId, HttpContext context, IConfigur
 
         if (tenant != null 
             && tenant.InfraDeployed == true   
-            //&& tenant.Activated == true add
+            && tenant.Activated == true 
             && tenant.Suspended==false
             && tenant.Deleted==false 
             && !string.IsNullOrEmpty(tenant.FQDN))

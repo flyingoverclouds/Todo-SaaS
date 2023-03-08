@@ -43,6 +43,7 @@ namespace portal_functions
             }
 
             tenant.InfraDeployed = true;
+            tenant.Activated = true;  
             tenant.FQDN= fqdn;
 
             await tableClient.UpdateEntityAsync<TenantEntity>(tenant, Azure.ETag.All);

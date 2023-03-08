@@ -23,7 +23,17 @@
 @foreach(var tenant in Model.Tenants)
     {
         <tr>
-            <td style="margin: 5px">@tenant.PartitionKey<br/></td>
+            <td style="margin: 5px">
+                @if (string.IsNullOrEmpty(tenant.FQDN))
+                {
+                    <span>@tenant.PartitionKey</span>
+                }
+                else
+                {
+                    <a href="https://mestoudouxredir.azurewebsites.net/@tenant.PartitionKey" tooltip="https: //mestoudouxredir.azurewebsites.net/@tenant.PartitionKey">@tenant.PartitionKey</a>
+                }
+                <br/>
+            </td>
             <td style="margin: 5px">@tenant.Name</td>
             <td style="margin: 5px">@tenant.Sku</td>
             <td style="margin: 5px">@tenant.FQDN</td>
