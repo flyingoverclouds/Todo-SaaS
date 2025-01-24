@@ -353,3 +353,4 @@ MigrationBackup/
 .ionide/
 /v1/src/run-todoservice-docker.cmd
 *.override.yml
+/v1/src/todo-service/appsettings.json
