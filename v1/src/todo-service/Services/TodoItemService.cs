@@ -17,8 +17,9 @@ namespace todo_service.Services
 
         public async Task SetDoneAsync(Guid todoId, bool done)
         {
-            // TODO : implement a partial update of TodoItems
-            throw new NotImplementedException();
+            var itm = await GetItemAsync(todoId);
+            itm.done = done;
+            await UpdateItemAsync(itm);
         }
 
         public async Task CreateItemAsync(TodoItem item)
@@ -37,11 +38,12 @@ namespace todo_service.Services
 
         public async Task DeleteItemAsync(Guid todoId)
         {
-            // TODO : v2: implement deletion of a TodoItem 
-            throw new NotImplementedException();
+             
+            var result = await dbContainer.DeleteItemAsync<TodoItem>(todoId.ToString(), new PartitionKey(todoId.ToString()));
+            // TODO : check item response to ensure write is correct
         }
 
-        
+
 
         public async Task<TodoItem> GetItemAsync( Guid todoId)
         {
