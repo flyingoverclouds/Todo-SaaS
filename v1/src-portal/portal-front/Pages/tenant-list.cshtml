@@ -3,13 +3,13 @@
 @{
 }
 
+<h2 style="color: mediumpurple">Tenants disponibles :</h2>
 
-<h2 style="color: orange">En attente d'implémentation ....</h2>
-
-<table>
+<table border="1">
     <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>Sku</th>
         <th>fqdn</th>
         <th>CreationDate</th>
         <th>InfraDeployed</th>
@@ -17,20 +17,33 @@
         <th>Activated</th>
         <th>Suspended</th>
         <th>Deleted</th>
+        <th>Locked</th>
     </tr>
 
 @foreach(var tenant in Model.Tenants)
     {
         <tr>
-            <td>@tenant.PartitionKey<br/></td>
-            <td>@tenant.Name</td>
-            <td>@tenant.FQDN</td>
-            <td>@tenant.CreationDate</td>
-            <td>@tenant.InfraDeployed</td>
-            <td>@tenant.DnsDeployed</td>
-            <td>@tenant.Activated</td>
-            <td>@tenant.Suspended</td>
-            <td>@tenant.Deleted</td>
+            <td style="margin: 5px">
+                @if (string.IsNullOrEmpty(tenant.FQDN))
+                {
+                    <span>@tenant.PartitionKey</span>
+                }
+                else
+                {
+                    <a href="https://go.mestoudoux.eu/@tenant.PartitionKey" target="_blank">@tenant.PartitionKey</a>
+                }
+                <br/>
+            </td>
+            <td style="margin: 5px">@tenant.Name</td>
+            <td style="margin: 5px">@tenant.Sku</td>
+            <td style="margin: 5px">@tenant.FQDN</td>
+            <td style="margin: 5px">@tenant.CreationDate</td>
+            <td style="margin: 5px">@tenant.InfraDeployed</td>
+            <td style="margin: 5px">@tenant.DnsDeployed</td>
+            <td style="margin: 5px">@tenant.Activated</td>
+            <td style="margin: 5px">@tenant.Suspended</td>
+            <td style="margin: 5px">@tenant.Deleted</td>
+            <td style="margin: 5px">@tenant.Locked</td>
         </tr>
     }
 </table>

@@ -31,6 +31,10 @@ namespace MesToudoux.Portal.Common.Entities
         public string Name { get; set; }
 
         /// <summary>
+        /// Code the current SKU
+        /// </summary>
+        public string Sku { get; set; }
+        /// <summary>
         /// Date of creation request (for birthday billing date)
         /// </summary>
         public DateTime CreationDate { get; set; }
@@ -59,6 +63,11 @@ namespace MesToudoux.Portal.Common.Entities
         /// true if tenant has beed deleted. 
         /// </summary>
         public bool Deleted { get; set; }
+
+        /// <summary>
+        /// if true, all action for changin the tenant status are forbidden (deactivate, delete, ...)
+        /// </summary>
+        public bool Locked { get; set; }
 
         /// <summary>
         /// root url for deployed tenant ( use for redirecting from tenantid.customers.mestoudoux.com )

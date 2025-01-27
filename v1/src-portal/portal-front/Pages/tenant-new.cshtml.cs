@@ -1,8 +1,14 @@
+using Azure.Data.Tables;
+using Azure.Storage.Queues; 
+using MesToudoux.Portal.Common.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using portal_front.Models;
+using System.Diagnostics;
 using System.Drawing;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace portal_front.Pages
 {
@@ -42,7 +48,7 @@ namespace portal_front.Pages
         {
         }
 
-        public void OnPost()
+        public async Task OnPost()
         {
             
             if (string.IsNullOrEmpty(SecurityCode))
@@ -56,12 +62,12 @@ namespace portal_front.Pages
             
             if (sha512sc != _configuration.GetValue<string>("SecurityCodeHash"))
             {
-                ErrorMessage = "Code de sécurité incorrect.";
+                ErrorMessage = "Code de s&eacute;curit&eacute; incorrect.";
                 return;
             }
-            if (string.IsNullOrEmpty(TenantId) || TenantId?.Length>4)
+            if (string.IsNullOrEmpty(TenantId) || TenantId?.Length>5)
             {
-                ErrorMessage = "L'ID de tenant est obligatoire et doit faire 4 caracteres maximum (lettre minuscule ou chiffres)";
+                ErrorMessage = "L'ID de tenant est obligatoire et doit faire 5 caract&egrave;res MAX (lettre minuscule ou chiffres)";
                 return;
             }
             TenantId = TenantId.ToLower();
@@ -73,20 +79,46 @@ namespace portal_front.Pages
             }
 
 
-            // TODO : check if tenant already exist
-            if (TenantId=="0000")
-            {
+            // Check if tenant already existe in tenant db
+            var tableClient = new TableClient(_configuration.GetValue<string>("TenantDbConnectionString"), "TodoTenants");
+            TenantEntity tenant = null;
+            try {
+                tenant = await tableClient.GetEntityAsync<TenantEntity>(TenantId, TenantId);
+
+                // if no error , an existing tenant has been found ... 
                 ErrorMessage = "Cet ID de tenant est déjà alloué. Merci de corriger votre saisie";
                 return;
             }
+            catch (Exception ex) {
+                // Error -> no tenant found, that's good :D
+            }
+
+            tenant = new TenantEntity
+            {
+                PartitionKey = TenantId,
+                RowKey = TenantId,
+                Name = $"Tenant {TenantId}",
+                Sku=SkuCode,
+                CreationDate = DateTime.UtcNow,
+                FQDN=string.Empty,
+                InfraDeployed =false,
+                DnsDeployed=false,
+                Activated = false,
+                Suspended=false,
+                Deleted=false,
+                Locked=false                
+            };
+            await tableClient.AddEntityAsync<TenantEntity>(tenant);
 
             // TODO : push message to queue to trigger infrastructure creation
-            // TODO : log msg ID
+            QueueClient qc = new QueueClient(new Uri(_configuration.GetValue<string>("TenantCreationRequestQueueConnectionString")));
+            var creationRequestMsg = $"{TenantId}";
+            var receipt = await qc.SendMessageAsync(Convert.ToBase64String(Encoding.UTF8.GetBytes(creationRequestMsg)));
 
-            this.SuccessMessage = $"La demande de création du tenant [{TenantId}] est prise en compte.";
+            Trace.TraceInformation($"Tenant creation requested : TenantId={TenantId}   MessageId={receipt.Value.MessageId}"); 
+
+            this.SuccessMessage = $"La demande de création du tenant [{TenantId}] est prise en compte. RequestId={receipt.Value.MessageId}";
             this.SecurityCode = string.Empty;
-            
-        
         }
     }
 }

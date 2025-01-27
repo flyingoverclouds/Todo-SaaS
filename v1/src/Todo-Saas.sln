@@ -15,6 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dbfiller-dev", "dbfiller-de
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{31DDE444-6ADC-41CB-9E95-903740CF2117}"
 	ProjectSection(SolutionItems) = preProject
+		buildAndDeploy-ACR.ps1 = buildAndDeploy-ACR.ps1
 		docker-compose.override.yml = docker-compose.override.yml
 		docker-compose.overrride-TEMPLATE.yml = docker-compose.overrride-TEMPLATE.yml
 		docker-compose.yml = docker-compose.yml

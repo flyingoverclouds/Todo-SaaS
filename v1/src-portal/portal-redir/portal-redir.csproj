@@ -4,15 +4,12 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>portal_front</RootNamespace>
-    <UserSecretsId>0d8c376e-51eb-4f14-95f1-edf6a096143a</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <RootNamespace>portal_redir</RootNamespace>
+    <UserSecretsId>38383385-9d00-4824-b5ca-a1af8f33309b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Data.Tables" Version="12.8.0" />
-    <PackageReference Include="Azure.Storage.Queues" Version="12.13.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
   </ItemGroup>
 
   <ItemGroup>
