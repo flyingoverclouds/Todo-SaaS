@@ -77,9 +77,12 @@ namespace todo_service.Controllers
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete("{id}")]
-        public async void Delete(Guid id)
+        public async Task<StatusCodeResult> Delete(Guid id)
         {
+            if (id == null)
+                return new NotFoundResult();
             await dataservice.DeleteItemAsync(id);
+            return new OkResult();
         }
     }
 }

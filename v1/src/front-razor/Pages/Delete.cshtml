@@ -1,0 +1,26 @@
+﻿@page
+@model DeleteModel
+
+@{
+    ViewData["Title"] = "Suppression d'un Toudou";
+}
+<h1>@ViewData["Title"]</h1>
+<hr/>
+
+@if (Model.Deleted) {
+    <div style="color: green;">Toudou supprimé.<br />
+    </div>
+}
+else
+{
+    <div style="color: darkorange;">
+        Impossible de supprimer le toudou [@Model.TodoId].<br />
+
+    </div>
+
+}
+
+@if (Model.ErrorMessage != null)
+{
+    <div class="text-danger">ERROR : @Model.ErrorMessage</div>
+}
