@@ -356,3 +356,5 @@ MigrationBackup/
 /v1/src/todo-service/appsettings.json
 /v1/src-portal/portal-front/appsettings.json
 /v1/src-portal/portal-front/appsettings.Development.json
+/v1/src-portal/portal-front/appsettings.json
+/v1/src-portal/portal-front/appsettings.json
